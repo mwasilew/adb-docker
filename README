@@ -1,0 +1,25 @@
+I. Running fastboot
+
+  docker run -it --device /dev/bus/usb/xxx/yyy --volume /path/to/binaries:/tmp/binaries <docker image ID> bash
+
+Than from within container
+
+  fastboot devices
+  fastboot flash <partition name> /tmp/binaries/<file name>
+
+II. Running adb
+Make sure that adb server is not running on the host. This prevents
+devices to be accessed from within container
+
+  docker run -it --device /dev/bus/usb/xxx/yyy --volume /path/to/binaries:/tmp/binaries <docker image ID> bash
+
+Than from within container
+
+  adb devices
+  adb shell
+
+III. Running CTS
+
+  docker run -it --device /dev/bus/usb/xxx/yyy --volume /path/to/binaries:/tmp/binaries <docker image ID> bash
+  cd /home/android-cts/tools
+  ./cts-tradefed run cts -a armeabi-v7a --disable-reboot  --skip-device-info --exclude-filter CtsDisplayTestCases
